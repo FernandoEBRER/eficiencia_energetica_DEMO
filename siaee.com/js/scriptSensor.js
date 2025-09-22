@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const url = "https://grupo7backendapi-production.up.railway.app/api/alertas";
+  const url = "https://grupo-7-energias-back-end.3du0va.easypanel.host/api/alertas";
 
   try {
     const resp = await fetch(url);
