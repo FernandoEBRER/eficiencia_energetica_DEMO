@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Consumo de Energia</title>
+    <link rel="stylesheet" href="./siaee.com/css/styleIndex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/jpg" href="/siaee.com/img/logo2.png">
+</head>
+<!--Modificações feitas-->
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="logo" id="logo-2">
+                <img src="./siaee.com/img/logo2.png" alt="Logo"> <span class="nav-item">Monitoramento</span>
+            </div>
+            <ul>
+                <li>
+                    <a href="./siaee.com/../index.html" class="active-nav-link"> 
+                        <i class='bx bxs-dashboard'></i>
+                        <span class="nav-item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./siaee.com/includes/proj.html">
+                        <i class='bx bxs-bar-chart-alt-2'></i>
+                        <span class="nav-item">Gráficos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./siaee.com/includes/sensor.html">
+                        <i class='bx bxs-component'></i>
+                        <span class="nav-item">Sensor</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="settings">
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="nav-item">Configurações</span>
+                </a>
+            </div>
+        </div>
+
+        <!--
+        <div class="sidebar-filters">
+            <h3>Filtros e Controles</h3>
+            
+            <div class="filter-group">
+                <label for="filtroMes">Mês/Ano:</label>
+                <input type="date" id="filtroMes">
+                <button id="btnFiltrarMesAno" class="filter-button">Filtrar</button>
+            </div>
+
+            <div class="filter-group">
+                <label for="filtroDataExataUnico">Data Exata:</label>
+                <input type="date" id="filtroDataExataUnico">
+                <button id="btnFiltrarDataExata" class="filter-button">Filtrar</button>
+            </div>
+
+            <div class="filter-group">
+                <label>Intervalo:</label>
+                <input type="date" id="filtroDataInicio">
+                <label>até</label>
+                <input type="date" id="filtroDataFim">
+                <button id="btnFiltrarIntervalo" class="filter-button">Filtrar</button>
+            </div>
+
+            <div class="chart-options">
+                <label><input type="checkbox" id="toggleBarChart"> Barras</label>
+                <label><input type="checkbox" id="toggleLineChart"> Linha</label>
+            </div>
+
+            <button id="todosDadosBtn" class="action-button">Todos os Dados</button>
+            <button id="resetChartBtn" class="action-button">Resetar Gráfico (e Filtros)</button>
+        </div>
+        -->
+
+        <div class="content-panel">
+            <div class="main-top">
+                <h2>Painel</h2>
+                <i class='bx bx-user'></i> 
+            </div>
+            
+            <div class="consumo">
+                <div class="total-consumption">
+                    <div class="consumo-total">
+                        <h2>Consumo Total</h2>
+                        <div class="table-scroll-container">
+                            <table class="table">
+                                <thead>
+                                    <tr id="table-header">
+                                        <th>id</th>
+                                        <th>device_id</th>
+                                        <th>corrente (A)</th>
+                                        <th>tensão (V)</th>
+                                        <th>potência (W)</th>
+                                        <th>energia (Wh)</th>
+                                        <th>frequencia (Hz)</th>
+                                        <th>fator_potencia</th>
+                                        <th>data_hora</th>
+                                        <th>energia_reativa (VArh)</th>
+                                        <th>potencia_reativa (Var)</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="table-dados" id="table-body">
+                                    <tr><td colspan="12" style="text-align: center;">Carregando dados...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="consumo">
+                <div class="total-consumption">
+                    <div class="grafico-container">
+                        <h3>Gráfico de Consumo</h3>
+                        <canvas id="graficoMedicoes" width="800" height="400"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="./siaee.com/js/scriptIndex.js"></script>
+</body>
+</html>

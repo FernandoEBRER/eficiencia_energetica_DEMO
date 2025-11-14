@@ -1,0 +1,665 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reset básico para todos os elementos */
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Estilo do corpo da página */
+body {
+    background: rgb(226, 226, 226);
+    line-height: 1.6; /* Melhora a legibilidade do texto */
+}
+
+/* Container principal que organiza a navegação, sidebar de filtros e o conteúdo principal */
+.main-container {
+    display: flex;
+    min-height: 100vh; /* Garante que o container ocupe a altura total da viewport */
+    background: rgb(226, 226, 226);
+}
+
+/* Estilos da barra de navegação (sidebar esquerda) */
+.sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 90px;
+    background: #fff;
+    overflow: hidden; /* Esconde o texto quando não expandido */
+    transition: width 0.5s ease;
+    flex-shrink: 0; /* Impede que a sidebar encolha */
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05); /* Sombra para destacá-la */
+    display: flex; /* Para alinhar logo, itens e settings */
+    flex-direction: column;
+}
+
+/* Estilo da barra de navegação quando expandida */
+.sidebar.expanded {
+    width: 280px;
+}
+
+/* Estilos da lista não ordenada dentro da nav */
+.sidebar ul {
+    height: 100%; /* Ocupa o espaço restante */
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-top: 20px;
+    list-style: none;
+}
+
+/* Estilos dos itens da lista */
+.sidebar li {
+    width: 100%;
+}
+
+/* Estilos dos links dentro da nav */
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: rgb(85, 83, 83);
+    white-space: nowrap; /* Impede quebra de linha no texto */
+    transition: 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilo ao passar o mouse sobre os links da nav */
+.sidebar a:hover,
+.sidebar a.active-nav-link { /* Adicionado estilo para link ativo */
+    background: #e0e0e0;
+    color: #34AF6D; /* Cor do texto ao ativo/hover */
+}
+
+/* Estilo dos ícones dentro dos links da nav */
+.sidebar a i {
+    font-size: 20px;
+    min-width: 30px;
+    text-align: center;
+    color: inherit; /* Herda a cor do link */
+}
+
+/* Estilo do texto dos itens da nav (inicialmente oculto) */
+.sidebar .nav-item {
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.3s ease;
+    white-space: nowrap;
+    width: 0; /* Começa com largura zero */
+    overflow: hidden;
+}
+
+/* Estilo do texto dos itens da nav quando expandida (visível) */
+.sidebar.expanded .nav-item {
+    opacity: 1;
+    width: auto; /* Permite que o texto apareça */
+    min-width: fit-content;
+}
+
+/* Estilos da seção do logo */
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo span {
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    color: #333;
+}
+
+/* Ajuste o item de configuração para ficar sempre no final da nav */
+.setting {
+    margin-top: auto; /* Empurra para o final da flex-column */
+    width: 100%; /* Garante que o link de setting ocupe a largura completa da sidebar */
+}
+
+/* CONTEÚDO PRINCIPAL (à direita da nav e da sidebar de filtros) */
+.content-panel { /* Container principal do painel, após a sidebar de filtros */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-grow: 1; /* Ocupa todo o espaço restante */
+    overflow-y: auto; /* Permite rolagem do conteúdo principal se necessário */
+    height: 100vh; /* Mantém a altura para rolagem interna */
+    gap: 20px; /* Espaço entre as seções dentro do painel (consumo, gráfico) */
+}
+
+.main-top {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+    padding: 0 10px;
+}
+
+.main-top h2 { /* Título "Painel" */
+    font-size: 24px;
+    color: #333;
+    /* margin-bottom: 15px; Removido para usar gap no content-panel */
+    padding-bottom: 10px;
+    /* border-bottom: 1px solid #eee; Removido para layout mais limpo */
+}
+
+/* Estilo do ícone de menu no topo da seção principal */
+.main-top .menu-toggle { /* Classe para o ícone de menu hamburger */
+    font-size: 24px;
+    color: rgb(110, 109, 109);
+    cursor: pointer;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+/* --- BARRA LATERAL PARA OS FILTROS --- */
+.sidebar-filters {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 280px; /* Largura ajustada para filtros */
+    background: #f0f2f5; /* Cor de fundo suave para a sidebar de filtros */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    overflow-y: auto;
+    z-index: 99;
+}
+
+.sidebar-filters h3 { /* Título "Filtros e Controles" */
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-group {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaço entre os elementos dentro do grupo */
+    margin-bottom: 15px; /* Espaço entre os grupos de filtro */
+}
+
+.filter-group label {
+    font-size: 14px;
+    color: #555;
+    display: block; /* Garante que o label ocupe sua própria linha */
+    margin-bottom: 5px; /* Espaço entre o label e o input/select */
+}
+
+.filter-group input[type="date"],
+.filter-group select {
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    background-color: #fefefe;
+    transition: border-color 0.3s ease;
+}
+
+.filter-group input[type="date"]:focus,
+.filter-group select:focus {
+    border-color: #34AF6D;
+}
+
+.filter-group .filter-button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: #34AF6D;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.filter-group .filter-button:hover {
+    background-color: #2e9f60;
+    transform: translateY(-1px);
+}
+
+/* Controles de visibilidade do gráfico (dentro de .sidebar-filters) */
+.chart-options {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 15px; /* Espaço antes dos botões de ação */
+}
+
+.chart-options label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    width: auto;
+}
+
+.chart-options input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    accent-color: #34AF6D;
+}
+
+/* Botões de Ação Global (Todos os Dados, Resetar Gráfico) */
+.action-button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.action-button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+#resetChartBtn {
+    background-color: #f44336;
+}
+#resetChartBtn:hover {
+    background-color: #da190b;
+}
+
+
+/* SEÇÃO DE CONSUMO (Tabela) */
+.total-consumption {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.total-consumption h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+}
+
+.table-scroll-container{
+    overflow-y: auto;
+    max-height: 400px;
+    width: 100%;
+}
+
+.table{
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 15px;
+    min-width: 100%;
+}
+
+.table thead{
+    position: sticky;
+    top: 0;
+    background: #34af6d;
+    color: #fff;
+    text-align: left;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.table th,
+.table td{
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background: #f3f3f3;
+}
+
+/* Estilo para o botão 'View' dentro de uma linha ativada/selecionada */
+.table tbody .view-button.permanently-selected {
+    background: #4AD46D;
+    color: #fff;
+    border: 1px solid #4AD46D;
+    cursor: default;
+}
+
+.table tbody .view-button.permanently-selected:hover {
+    filter: brightness(1.1);
+}
+
+.table tbody tr.active {
+    font-weight: bold;
+    color: #4AD46D;
+    background-color: #e9f9f0;
+    transition: background-color 0.3s ease;
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 2px solid #4AD46D;
+}
+
+.table button { /* Regra geral para botões na tabela */
+    padding: 6px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #4AD46D;
+    transition: background 0.5s, color 0.5s;
+}
+
+.table button:hover {
+    background: #4AD46D;
+    color: #fff;
+}
+
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 400px; /* Altura máxima da tabela antes de rolar. AJUSTE ISSO! */
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+/* Estilos da Tabela */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 14px;
+    min-width: 900px; /* Garante que a tabela não fique muito espremida em telas menores */
+}
+
+.data-table thead {
+    position: sticky;
+    top: 0;
+    background: #34AF6D;
+    color: #fff;
+    text-align: left;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    white-space: nowrap;
+}
+
+.data-table tbody tr:nth-of-type(odd) {
+    background: #f9f9f9;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+/* Estilo para a linha da tabela quando ativa */
+.data-table tbody tr.active {
+    font-weight: 500;
+    color: #28a745;
+    background-color: #e6ffe6;
+    box-shadow: inset 3px 0 0 #28a745;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo para o botão 'View' dentro de uma linha ativada/selecionada */
+.data-table tbody .view-button {
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 13px;
+}
+
+.data-table tbody .view-button:hover {
+    background: #1976D2;
+    transform: translateY(-1px);
+}
+
+.data-table tbody .view-button.permanently-selected {
+    background: #4AD46D;
+    color: #fff;
+    cursor: default;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.data-table tbody .view-button.permanently-selected:hover {
+    filter: brightness(1.05);
+    transform: none;
+}
+
+/* SEÇÃO DO GRÁFICO */
+.chart-container {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.chart-container h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 400px;
+    max-height: 450px;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 70px;
+    }
+    .sidebar.expanded {
+        width: 250px;
+    }
+    .sidebar .nav-item {
+        font-size: 13px;
+    }
+    .sidebar a i {
+        font-size: 18px;
+    }
+    .sidebar-filters {
+        width: 250px;
+    }
+    .data-table {
+        min-width: 800px;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-container {
+        flex-direction: column;
+        min-height: auto;
+    }
+    .sidebar {
+        position: static;
+        height: auto;
+        width: 100%;
+        overflow: visible;
+        padding-bottom: 10px;
+        box-shadow: none;
+        flex-direction: row; /* Alinha logo e itens da nav na horizontal */
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .sidebar .logo {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    .sidebar ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0;
+        width: 100%;
+        height: auto;
+    }
+    .sidebar li {
+        width: auto;
+        margin: 5px;
+    }
+    .sidebar a {
+        flex-direction: column;
+        gap: 5px;
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+    .sidebar .nav-item {
+        opacity: 1;
+        width: auto;
+        min-width: auto;
+    }
+    .sidebar.expanded {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+    .setting {
+        position: static;
+        margin-top: 10px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .sidebar-filters {
+        position: static;
+        height: auto;
+        width: 100%;
+        box-shadow: none;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .sidebar-filters h3 {
+        text-align: left;
+    }
+    .filter-group, .chart-options, .action-button {
+        width: 48%;
+        margin-bottom: 10px;
+    }
+    .filter-group label {
+        text-align: center;
+        width: 100%;
+    }
+    .filter-group input[type="date"],
+    .filter-group select,
+    .filter-group .filter-button {
+        width: 90%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    .chart-options label {
+        justify-content: center;
+    }
+
+    .content-panel {
+        padding: 15px;
+        height: auto;
+        gap: 15px;
+    }
+    .main-top {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+    .main-top h2 {
+        margin-bottom: 10px;
+    }
+    .main-top .menu-toggle {
+        margin: 5px 0 10px 0;
+        align-self: center;
+    }
+    .table-container {
+        max-height: 300px;
+    }
+    .chart-container canvas {
+        height: 350px;
+    }
+}
+
+@media (max-width: 767px) {
+    .filter-group, .chart-options, .action-button {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .filter-group label {
+        align-items: center;
+    }
+    .filter-group input[type="date"],
+    .filter-group select,
+    .filter-group .filter-button {
+        width: 95%;
+        max-width: none;
+    }
+    .chart-options label {
+        justify-content: center;
+    }
+    .action-button {
+        width: 95%;
+        max-width: none;
+    }
+    .data-table {
+        min-width: 600px;
+    }
+    .chart-container canvas {
+        height: 300px;
+    }
+}

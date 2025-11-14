@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Painel de Consumo de Energia</title>
+        <link rel="stylesheet" href="../css/styleSensor.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="icon" type="image/png" href="/siaee.com/img/logo2.png">
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div class="sidebar"><ul>
+                <div class="logo">
+                    <img src="../img/logo2.png" alt="Logo SIEE"> <span class="nav-item">SIEE</span>
+                </div>
+                <ul>
+                    <li>
+                        <a href="../../index.html">
+                            <i class='bx bxs-dashboard'></i>
+                            <span class="nav-item">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../includes/proj.html">
+                            <i class='bx bxs-bar-chart-alt-2'></i>
+                            <span class="nav-item">Gráficos</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../includes/sensor.html" class="active-nav-link">
+                            <i class='bx bxs-component'></i>
+                            <span class="nav-item">Sensor</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="settings">
+                    <a href="#">
+                        <i class='bx bx-cog'></i>
+                        <span class="nav-item">Configurações</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="content-panel">
+            <div class="main-top">
+                <h2></h2>
+                <i class='bx bx-user'></i>
+            </div>
+            
+            <div class="consumo">
+                <div class="total-consumption">
+                    <div class="consumo-total">
+                        <h2>Medições dos Sensores</h2>
+                        <div class="table-scroll-container">
+                            <table class="table">
+                                <thead>
+                                    <tr id="table-header">
+                                        <th>id</th>
+                                        <th>device_id</th>
+                                        <th>mensagem_ia</th>
+                                        <th>data_hora</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="table-dados" id="table-body">
+                                    <tr><td colspan="12" style="text-align: center;">Carregando dados...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/scriptSensor.js"></script>
+    </body>
+</html>
