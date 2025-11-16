@@ -87,7 +87,15 @@
             <div class="consumo">
                 <div class="total-consumption">
                     <div class="consumo-total">
-                        <h2>Consumo Total</h2>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+  <h2>Consumo Total</h2>
+
+  <img id="refreshBtn"
+       src="./siaee.com/img/atualizar.png"
+       alt="Atualizar"
+       style="width: 50px; height: 50px; cursor: pointer; opacity: 0.8;">
+</div>
+
                         <div class="table-scroll-container">
                             <table class="table">
                                 <thead>
@@ -119,6 +127,21 @@
                 <div class="total-consumption">
                     <div class="grafico-container">
                         <h3>Gráfico de Consumo</h3>
+                        
+                        <div class="filter-controls" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+                            <label for="startDate">De:</label>
+                            <input type="date" id="startDate" name="startDate">
+                            
+                            <label for="endDate">Até:</label>
+                            <input type="date" id="endDate" name="endDate">
+                            
+                            <button id="filterChartBtn" class="action-button">Filtrar Gráfico</button>
+                            <button id="resetChartFilterBtn" class="action-button" style="background-color: #aaa;">Resetar</button>
+                        </div>
+                        <canvas id="graficoMedicoes" width="800" height="400"></canvas>
+                    </div>
+                </div>
+            </section>
                         <canvas id="graficoMedicoes" width="800" height="400"></canvas>
                     </div>
                 </div>
