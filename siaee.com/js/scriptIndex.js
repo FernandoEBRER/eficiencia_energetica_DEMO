@@ -97,13 +97,19 @@ async function loadData(startDate = null, endDate = null) {
                     { type: "line", label: "Tensão (V)", data: tensao, borderColor: "rgba(75, 192, 192, 1)", fill: false, tension: 0.3, yAxisID: 'y1' }
                 ]
             },
-            options: { 
-                 responsive: true,
-                 scales: {
-                    y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Potência / Energia' } },
-                    y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Tensão / Corrente' } }
-                 },
-                 plugins: {
+            // ... dentro da função loadData() ...
+            options: { 
+                 responsive: true,
+                 scales: {
+                    // ✅ NOVO CÓDIGO CORRIGIDO (EIXO X)
+                    x: {
+                        reverse: true, // Força a ordem cronológica (Antiga -> Recente)
+                    },
+                    y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Potência / Energia' } },
+                    y1: { beginAtZero: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Tensão / Corrente' } }
+                 },
+                 plugins: {
+// ...
                     title: { display: true, text: "Medições Elétricas" },
                     legend: { position: "top" }
                  }
